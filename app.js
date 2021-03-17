@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const request = require('request')
+const dotenv = require('dotenv')
+dotenv.config()
 //Middleware
 app.set("view engine", "ejs")
 app.use('/public', express.static('public'))
@@ -23,7 +25,7 @@ app.get('/dummy', (req, res) => {
 app.get('/result', (req, res) => {
     console.log(req.query)
     //res.send(`You searched for ${req.query.movieName}`)
-    const url = `http://www.omdbapi.com/?apikey=46f9f961&s=${req.query.movieName}`
+    const url = `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${req.query.movieName}`
     request(url, function(error, response, body){
         if(!error && response.statusCode === 200){
             const data = JSON.parse(body)
@@ -37,7 +39,7 @@ app.get('/result', (req, res) => {
 })
 
 app.get('/result/:id', (req, res) => {
-    const url = `http://www.omdbapi.com/?apikey=46f9f961&i=${req.params.id}`
+    const url = `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${req.params.id}`
     request(url, function(error, response, body){
         if(!error && response.statusCode === 200){
             const data = JSON.parse(body)
