@@ -8,7 +8,7 @@ app.set("view engine", "ejs")
 app.use('/public', express.static('public'))
 // routing
 app.get('/', (req, res) => {
-    res.render("Home")
+    res.render("home")
     //res.send('Home page for Tarang')
 })
 
